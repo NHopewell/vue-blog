@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { Post, today, thisWeek, thisMonth } from "../posts.ts";
 
 const periods = ["Today", "This Week", "This Month"] as const;
 type Period = (typeof periods)[number];
@@ -10,6 +11,8 @@ const selectPeriod = (period: Period): void => {
   console.log(period);
   selectedPeriod.value = period;
 };
+
+const posts: Post[] = [today, thisWeek, thisMonth];
 </script>
 
 <template>
@@ -24,5 +27,10 @@ const selectPeriod = (period: Period): void => {
         {{ period }}
       </a>
     </span>
+
+    <a v-for="post of posts" :key="post" class="panel-block">
+      <a>{{ post.title }}</a>
+      <div>{{ post.created }}</div>
+    </a>
   </nav>
 </template>
