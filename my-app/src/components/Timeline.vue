@@ -1,11 +1,26 @@
 <script setup lang="ts">
-const periods = ["Today", "This week", "This Month"];
+import { ref } from "vue";
+
+const periods = ["Today", "This Week", "This Month"] as const;
+type Period = (typeof periods)[number];
+
+const selectedPeriod = ref<Period>("Today");
+
+const selectPeriod = (period: Period): void => {
+  console.log(period);
+  selectedPeriod.value = period;
+};
 </script>
 
 <template>
   <nav class="is-primary panel">
     <span class="panel-tabs">
-      <a v-for="period of periods" v-bind:key="period">
+      <a
+        v-for="period of periods"
+        :key="period"
+        :class="{ 'is-active': period === selectedPeriod }"
+        @:click="selectPeriod(period)"
+      >
         {{ period }}
       </a>
     </span>
