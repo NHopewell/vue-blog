@@ -6,6 +6,11 @@ export interface Post {
     created: string
 };
 
+// extend Postm for TimelineItem.vue
+export interface TimelinePost extends Omit<Post, 'created'> {
+    created: DateTime
+}
+
 export const today: Post = {
     id: "1",
     title: "Today",
